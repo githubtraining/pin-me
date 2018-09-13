@@ -1,0 +1,11 @@
+language: ruby
+rvm:
+- 2.2
+sudo: false
+before_script:
+  - pip install --user yamllint
+  - pip install --user yamale
+script:
+  - yamllint _pins/*
+  - ruby -Itest tests/all.rb
+  - bundle exec jekyll build

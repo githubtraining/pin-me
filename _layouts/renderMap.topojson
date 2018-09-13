@@ -1,0 +1,46 @@
+---
+
+---
+{% if page.showJS %}
+eqfeed_callback(
+{% endif %}
+
+  {
+    "type": "FeatureCollection",
+    "features": [
+
+    {% for pin in site.pins %}
+
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            {% if pin.longitude %}
+            {{ pin.longitude }},
+            {% elsif pin.Longitude %}
+            {{ pin.Longitude }},
+            {% endif %}
+            {% if pin.latitude %}
+            {{ pin.latitude }}
+            {%elsif pin.Latitude %}
+            {{ pin.Latitude }}
+            {% endif %}
+            ]
+          },
+          "properties": {
+            {% if pin.githubHandle %}
+            "username": "{{ pin.githubHandle }}"
+            {% elsif pin.githubhandle %}
+            "username": "{{ pin.githubhandle }}"
+            {% endif %}
+          }
+        }{% if forloop.last == false %},{% endif %}
+
+    {% endfor %}
+  ]
+  }
+
+{% if page.showJS %}
+)
+{% endif %}
